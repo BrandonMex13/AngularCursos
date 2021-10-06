@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SearchGifsResponse, Gif } from '../interface/gifs.interface';
 
@@ -7,32 +7,51 @@ import { SearchGifsResponse, Gif } from '../interface/gifs.interface';
 })
 export class GifsService {
 
-  constructor( private http: HttpClient){}
+	constructor( private http: HttpClient){
 
-  private apikey:string = "4GaSGpJqVAE4tm3vca2Nv2sXhaVBNnxX";
+		this._historial = JSON.parse( localStorage.getItem('historial')! ) || [];
+		this.resultador = JSON.parse( localStorage.getItem('resultado')! ) || [];
+		// if(localStorage.getItem('historial')){
+		//   this._historial = JSON.parse( localStorage.getItem('historial')! );
+		// }
+	}
 
-  private _historial: string[] = [];
+	private apikey:string = "4GaSGpJqVAE4tm3vca2Nv2sXhaVBNnxX";
+	private servicioURL:string = "https://api.giphy.com/v1/gifs";
 
-  public resultador: Gif[] = [];
+	private _historial: string[] = [];
 
-  get historial(){
-    return [...this._historial];
-  }
+	public resultador: Gif[] = [];
 
-  buscarGifs( query: string){
-    
-    query = query.trim().toLowerCase();
+	get historial(){
+		return [...this._historial];
+	}
 
-    if(!this._historial.includes(query)){
-      this._historial.unshift(query);
-      this._historial = this._historial.splice(0,10);
-    }
+	buscarGifs( query: string){
 
-    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=4GaSGpJqVAE4tm3vca2Nv2sXhaVBNnxX&q=${ query }&limit=10`)
-    .subscribe((resp) =>{
-      console.log(resp.data);
-      this.resultador = resp.data;
-    });
+		query = query.trim().toLowerCase();
 
-  }
+		if(!this._historial.includes(query)){
+			this._historial.unshift(query);
+			this._historial = this._historial.splice(0,10);
+
+			localStorage.setItem('historial', JSON.stringify(this._historial));
+		}
+
+		const params = new HttpParams()
+			.set('api_key', this.apikey)
+			.set('limit', '10')
+			.set('q', query);
+
+		// console.log(params);
+
+		this.http.get<SearchGifsResponse>(`${ this.servicioURL }/search`, { params: params })
+		.subscribe((resp) =>{
+			// console.log(resp.data);
+			this.resultador = resp.data;
+
+			localStorage.setItem('resultado', JSON.stringify(this.resultador));
+		});
+
+	}
 }
