@@ -29,4 +29,12 @@ export class PaisService {
 
       return this.http.get<Country>( url );
     }
+
+    buscarRegion( region: string): Observable<Country[]>{
+      // apiUrl = 'https://restcountries.com/v2';
+      // const url = `https://restcountries.com/v2/regionalbloc/${ region }`;
+      const url = `${ this.apiUrl }/region/${ region }`;
+
+      return this.http.get<Country[]>( url );
+    }
 }
