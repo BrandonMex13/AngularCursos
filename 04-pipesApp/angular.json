@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pipesApp",
+            "outputPath": "dist/pipes-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -27,10 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/vela-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -97,10 +94,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/vela-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "src/styles.css"
             ],
             "scripts": []
           }
