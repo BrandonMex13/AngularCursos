@@ -39,6 +39,22 @@ export class NoComunesComponent implements OnInit {
         direccion: "Culiacan, Sinaloa"
     }
 
+    // Json Pipe
+    heroes = [
+        {
+            nombre : 'Superman',
+            vuela: true
+        },
+        {
+            nombre : 'Robin',
+            vuela: false
+        },
+        {
+            nombre : 'Aquaman',
+            vuela: false
+        },
+    ];
+
     constructor() { }
 
     ngOnInit(): void {
