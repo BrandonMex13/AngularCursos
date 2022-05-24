@@ -7,6 +7,8 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { SharedModule } from './shared/shared.module';
 import { VentasModule } from './ventas/ventas.module';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // cambiar el local de la app
 import localEsMx from '@angular/common/locales/es-MX';
 import localFr from '@angular/common/locales/fr';
@@ -20,6 +22,7 @@ registerLocaleData(localFr);
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     PrimeNgModule,
     AppRouterModule,
     SharedModule,
