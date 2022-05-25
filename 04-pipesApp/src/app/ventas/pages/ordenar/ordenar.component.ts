@@ -38,9 +38,15 @@ export class OrdenarComponent implements OnInit {
         },
     ];
 
+    ordernarPor : string = '';
+
     constructor() { }
 
     ngOnInit(): void {
+    }
+
+    cambiarOrden( valor : string){
+        this.ordernarPor = valor;
     }
 
     
