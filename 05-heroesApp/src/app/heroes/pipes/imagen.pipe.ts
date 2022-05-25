@@ -12,7 +12,7 @@ export class ImagenPipe implements PipeTransform {
     transform(heroe : Heroe): string {
 
         if( heroe.alt_img){
-            return this.urlImagen + heroe.alt_img + ".jpg";
+            return heroe.alt_img;
         }
         else{
             return this.urlImagen + heroe.id + ".jpg";
