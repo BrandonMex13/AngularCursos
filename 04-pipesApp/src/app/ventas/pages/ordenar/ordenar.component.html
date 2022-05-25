@@ -3,8 +3,61 @@
     <p>
         Pipes creados por {{ "nosotros" | mayusculas:enMayusculas }}.
     </p>
+</div>
 
-    <button pButton (click)="enMayusculas = !enMayusculas">
-        toggle mayusculas
-    </button>
+<p-toolbar>
+    <div class="p-toolbar-group-left"></div>
+    
+    <div class="p-toolbar-group-right">
+
+        <button pButton class="mr-1 p-button-warning" (click)="enMayusculas = !enMayusculas">
+            toggle mayusculas
+        </button>
+
+        <button pButton
+            icon="pi pi-sort"
+            label="Ordenas por nombre"
+            class="mr-1"
+        > 
+        </button>
+
+        <button pButton
+            icon="pi pi-sort"
+            label="Valores"
+            class="mr-1 p-button-success"
+        > 
+        </button>
+
+        <button pButton
+            icon="pi pi-sort"
+            label="Por Color"
+            class="mr-1 p-button-help"
+        > 
+        </button>
+
+    </div>
+
+</p-toolbar>
+
+<div class="grid">
+    <div class="col mt-2">
+
+        <p-table [value]="heroes" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Vuela</th>
+                    <th>Color</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-heroe>
+                <tr>
+                    <td>{{heroe.nombre}}</td>
+                    <td>{{heroe.vuela}}</td>
+                    <td>{{heroe.color}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
 </div>
