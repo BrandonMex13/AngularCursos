@@ -8,7 +8,8 @@
 
     </mat-card-header>
 
-    <img mat-card-image src="../../../../assets/heroes/{{ heroe.id }}.jpg" alt="No se encuentra la imagen">
+    <!-- <img mat-card-image src="../../../../assets/heroes/{{ heroe.id }}.jpg" alt="No se encuentra la imagen"> -->
+    <img mat-card-image [src]="heroe | imagen" alt="No se encuentra la imagen">
 
     <mat-card-content>
         <h3>{{ heroe.publisher }}</h3>
