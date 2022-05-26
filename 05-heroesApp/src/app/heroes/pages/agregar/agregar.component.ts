@@ -3,6 +3,9 @@ import { Heroe, Publisher } from '../../interfaces/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmarComponent } from '../../components/confirmar/confirmar.component';
 
 @Component({
   selector: 'app-agregar',
@@ -34,7 +37,9 @@ export class AgregarComponent implements OnInit {
     constructor(
         private heroeService : HeroesService,
         private router : ActivatedRoute,
-        private routerBack : Router
+        private routerBack : Router,
+        private snackBar : MatSnackBar,
+        private dialog : MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -57,20 +62,39 @@ export class AgregarComponent implements OnInit {
 
         if( this.heroe.id ){
             // Acttualizar
-            this.heroeService.actualizarHeroe( this.heroe ).subscribe( resp => console.log('resp :>> ', resp) );
+            this.heroeService.actualizarHeroe( this.heroe ).subscribe( resp => {
+                this.mostrarSnackBar("Registro Actualizado");
+            });
         }
         else{
             // Guardar
             this.heroeService.agregarHeroe( this.heroe )
             .subscribe( heroe => {
                 this.routerBack.navigate(['/heroes/editar', heroe.id]);
+                this.mostrarSnackBar("Registro Guardado");
             });
         }
     }
 
     borrarHeroe(){
-        this.heroeService.borrarHeroe( this.heroe.id! ).subscribe( resp => {
-            this.routerBack.navigate(['/heroes']);
+
+        const dialog = this.dialog.open(ConfirmarComponent, {
+            width: '250px',
+            data: this.heroe
+        });
+
+        dialog.afterClosed().subscribe( (result) => {
+            if(result){
+                this.heroeService.borrarHeroe( this.heroe.id! ).subscribe( resp => {
+                    this.routerBack.navigate(['/heroes']);
+                });
+            }
+        });
+    }
+
+    mostrarSnackBar( mensaje : string) : void{
+        this.snackBar.open( mensaje, "OK!", {
+            duration: 2500
         });
     }
 
