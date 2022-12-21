@@ -1,0 +1,7 @@
+Se necesita correr el comando 
+npm install -g json-server
+para instalar
+
+y luego el comando
+json-server --watch db.json
+para levantar el servicio
